@@ -6,3 +6,5 @@ export { SocialIcon } from "./SocialIcon";
 export { Footer } from "./Footer";
 export { RatingQuestionType } from "./RatingQuestionType";
 export { TextQuestionType } from "./TextQuestionType";
+export { ProgressIndicator } from "./ProgressIndicator";
+export { QuestionWrapper } from "./QuestionWrapper";
