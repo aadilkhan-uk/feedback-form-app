@@ -14,17 +14,17 @@ import {
 export default function FeedbackFormPage() {
   const { survey, isLoading, error } = useSurvey();
   const [formResponses, setFormResponses] = useState<
-    Record<string, string | number>
+    Record<number, string | number>
   >({});
 
-  const handleRatingChange = (questionKey: string, rating: number) => {
+  const handleRatingChange = (questionKey: number, rating: number) => {
     setFormResponses((prev) => ({
       ...prev,
       [questionKey]: rating,
     }));
   };
 
-  const handleTextChange = (questionKey: string, text: string) => {
+  const handleTextChange = (questionKey: number, text: string) => {
     setFormResponses((prev) => ({
       ...prev,
       [questionKey]: text,
@@ -83,12 +83,12 @@ export default function FeedbackFormPage() {
 
         {/* Questions */}
         {survey.questions.map((question, index) => {
-          const isCompleted = formResponses[question.key] !== undefined;
+          const isCompleted = formResponses[question.questionId] !== undefined;
 
           if (question.type === "rating") {
             return (
               <Card
-                key={question.key}
+                key={question.questionId}
                 className={`mb-4 transition-all duration-300 ${
                   isCompleted
                     ? "border-[var(--color-accent-green)]/30 bg-white/8"
@@ -106,10 +106,10 @@ export default function FeedbackFormPage() {
                     {index + 1}
                   </div>
                   <RatingQuestionType
-                    key={question.key}
+                    key={question.questionId}
                     label={question.label}
                     onRatingChange={(rating) =>
-                      handleRatingChange(question.key, rating)
+                      handleRatingChange(question.questionId, rating)
                     }
                   />
                 </div>
@@ -120,7 +120,7 @@ export default function FeedbackFormPage() {
           if (question.type === "text") {
             return (
               <Card
-                key={question.key}
+                key={question.questionId}
                 className={`transition-all duration-300 ${
                   isCompleted
                     ? "border-[var(--color-accent-green)]/30 bg-white/8"
@@ -138,11 +138,11 @@ export default function FeedbackFormPage() {
                     {index + 1}
                   </div>
                   <TextQuestionType
-                    key={question.key}
+                    key={question.questionId}
                     className="flex-1"
                     label={question.label}
                     onTextChange={(text) =>
-                      handleTextChange(question.key, text)
+                      handleTextChange(question.questionId, text)
                     }
                   />
                 </div>

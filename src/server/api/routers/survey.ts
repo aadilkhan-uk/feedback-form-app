@@ -5,6 +5,7 @@ import {
   MockResponseRepo,
   MockSurveyRepo,
 } from "root/server/domain/mocks";
+import type { SurveyQuestionResponse } from "root/server/domain/types";
 
 export const surveyRouter = createTRPCRouter({
   getSurvey: publicProcedure.query(async () => {
@@ -14,14 +15,22 @@ export const surveyRouter = createTRPCRouter({
   submitResponse: publicProcedure
     .input(
       z.object({
-        surveyId: z.string(),
-        answers: z.record(z.number(), z.unknown()),
+        surveyId: z.number(),
+        answers: z.array(
+          z.object({
+            questionId: z.number(),
+            response: z.string().or(z.number()),
+          }),
+        ),
       }),
     )
     .mutation(async ({ input }) => {
       if (input.answers) {
         // Submit response to database
-        const response = await MockResponseRepo.submitResponse(input);
+        const response = await MockResponseRepo.submitResponse({
+          surveyId: input.surveyId,
+          answers: input.answers,
+        });
 
         // Generate written review based on feedback
         const review = await MockReviewService.generateWrittenReview(

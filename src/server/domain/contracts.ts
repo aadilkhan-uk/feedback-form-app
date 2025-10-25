@@ -1,7 +1,7 @@
-import type { Survey } from "./types";
+import type { Survey, SurveyQuestionResponse } from "./types";
 
 export interface IReviewService {
-  generateWrittenReview(answers: Record<number, unknown>): Promise<string>;
+  generateWrittenReview(answers: SurveyQuestionResponse[]): Promise<string>;
 }
 
 export interface ISurveyRepo {
@@ -10,7 +10,7 @@ export interface ISurveyRepo {
 
 export interface IResponseRepo {
   submitResponse(data: {
-    surveyId: string;
-    answers: Record<number, unknown>;
-  }): Promise<{ id: string }>;
+    surveyId: number;
+    answers: SurveyQuestionResponse[];
+  }): Promise<{ id: number }>;
 }

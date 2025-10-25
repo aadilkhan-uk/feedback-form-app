@@ -1,13 +1,23 @@
 export type QuestionType = "rating" | "text";
 
 export interface SurveyQuestion {
-  key: string;
+  questionId: number;
   label: string;
   type: QuestionType;
 }
 
 export interface Survey {
-  id: string;
+  surveyId: number;
   title: string;
   questions: SurveyQuestion[];
+}
+
+export interface SurveyQuestionResponse {
+  questionId: number;
+  response: string | number;
+}
+
+export interface SurveyResponse {
+  surveyId: number;
+  responses: SurveyQuestionResponse[];
 }
