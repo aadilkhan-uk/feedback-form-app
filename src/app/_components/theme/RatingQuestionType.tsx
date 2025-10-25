@@ -26,7 +26,7 @@ export const RatingQuestionType: React.FC<RatingQuestionTypeProps> = ({
   return (
     <div className={className}>
       {/* Label */}
-      <label className="mb-8 block text-lg leading-tight font-semibold text-[var(--color-text-white)]">
+      <label className="mb-4 block text-lg leading-tight font-semibold text-[var(--color-text-white)]">
         {label}
       </label>
 

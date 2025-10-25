@@ -1,6 +1,10 @@
 "use client";
 
-import { RatingQuestionType, TextQuestionType } from "../_components/theme";
+import {
+  Button,
+  RatingQuestionType,
+  TextQuestionType,
+} from "../_components/theme";
 
 export default function FeedbackFormPage() {
   return (
@@ -8,7 +12,7 @@ export default function FeedbackFormPage() {
       {/* Mobile-first skeleton layout */}
       <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col pt-16 pb-8">
         {/* Header Section */}
-        <header className="mb-8 px-4 py-8 sm:px-6 lg:px-8">
+        <header className="px-4 py-8 sm:px-6 lg:px-8">
           <h1 className="text-center text-3xl font-light tracking-wide sm:text-4xl lg:text-5xl">
             Feedback
           </h1>
@@ -29,6 +33,7 @@ export default function FeedbackFormPage() {
               multiline={true}
               onTextChange={(text: string) => console.log("Text:", text)}
             />
+            <Button>Submit</Button>
           </div>
         </section>
 
