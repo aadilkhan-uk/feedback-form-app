@@ -14,61 +14,84 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
+enum QuestionType {
+  text
+  rating
 }
 
-// Necessary for Next auth
-model Account {
-    id                       String  @id @default(cuid())
-    userId                   String
-    type                     String
-    provider                 String
-    providerAccountId        String
-    refresh_token            String? // @db.Text
-    access_token             String? // @db.Text
-    expires_at               Int?
-    token_type               String?
-    scope                    String?
-    id_token                 String? // @db.Text
-    session_state            String?
-    user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    refresh_token_expires_in Int?
+model Restaurant {
+  id         String   @id @default(cuid())
+  name       String
+  placeId    String?  @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-    @@unique([provider, providerAccountId])
+  // Relations
+  surveys    Survey[]
 }
 
-model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Survey {
+  id           String      @id @default(cuid())          // survey ID
+  title        String
+  slug         String      @unique                       // for /s/[slug]
+  isActive     Boolean     @default(true)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  // FK
+  restaurantId String?
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id], onDelete: SetNull)
+
+  // Relations
+  questions    Question[]
+  submissions  Submission[]
+
+  @@index([restaurantId])
 }
 
-model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    posts         Post[]
+model Question {
+  id         String       @id @default(cuid())           // question ID
+  type       QuestionType
+  required   Boolean      @default(false)
+  label      String
+  sortOrder  Int          @default(0)
+
+  // FK
+  surveyId   String
+  survey     Survey       @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+
+  // Relations
+  answers    Answer[]
+
+  @@index([surveyId, sortOrder])
 }
 
-model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+model Submission {
+  id         String    @id @default(cuid())
+  surveyId   String
+  createdAt  DateTime  @default(now())
 
-    @@unique([identifier, token])
+  survey     Survey    @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  answers    Answer[]
+
+  @@index([surveyId, createdAt])
+}
+
+model Answer {
+  id            String    @id @default(cuid())
+
+  // “Response schema” — tie an answer to a question (and its submission/survey)
+  submissionId  String
+  questionId    String
+
+  // Values (choose one based on the question type)
+  textValue     String?
+  ratingValue   Int?      // enforce 1..10 in app or with a DB CHECK if supported
+  raw           Json?     // optional: store original payload
+
+  submission    Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  question      Question   @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([questionId])
+  @@index([submissionId])
 }
