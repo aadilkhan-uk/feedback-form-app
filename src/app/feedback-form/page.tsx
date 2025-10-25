@@ -1,3 +1,7 @@
+"use client";
+
+import { RatingQuestionType } from "../_components/theme";
+
 export default function FeedbackFormPage() {
   return (
     <main className="flex min-h-screen flex-col">
@@ -11,7 +15,14 @@ export default function FeedbackFormPage() {
         </header>
 
         {/* Main Content Area */}
-        <section className="flex-1 px-4 py-8 sm:px-6 lg:px-8"></section>
+        <section className="flex-1 px-4 py-8 sm:px-6 lg:px-8">
+          <RatingQuestionType
+            label="Rate your experience:"
+            onRatingChange={(rating: number) =>
+              console.log("Selected rating:", rating)
+            }
+          />
+        </section>
 
         {/* Footer spacing */}
         <div className="mt-auto"></div>
