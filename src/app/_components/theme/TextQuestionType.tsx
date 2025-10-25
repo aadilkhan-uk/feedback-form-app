@@ -31,7 +31,7 @@ export const TextQuestionType: React.FC<TextQuestionTypeProps> = ({
   return (
     <div className={className}>
       {/* Label */}
-      <label className="mb-4 block text-lg leading-tight font-semibold text-[var(--color-text-white)]">
+      <label className="mb-4 block text-base leading-tight font-normal text-[var(--color-text-white)]">
         {label}
       </label>
 

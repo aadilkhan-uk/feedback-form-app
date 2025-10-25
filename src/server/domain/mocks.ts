@@ -19,12 +19,17 @@ export const MockSurveyRepo: ISurveyRepo = {
         },
         {
           key: "2",
-          label: "What do you like about the product?",
-          type: "text",
+          label: "How was your service today?",
+          type: "rating",
         },
         {
           key: "3",
-          label: "What do you dislike about the product?",
+          label: "How was your experience today?",
+          type: "rating",
+        },
+        {
+          key: "4",
+          label: "What did you like about your service today?",
           type: "text",
         },
       ],
