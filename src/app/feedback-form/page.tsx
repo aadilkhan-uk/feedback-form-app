@@ -1,6 +1,6 @@
 "use client";
 
-import { RatingQuestionType } from "../_components/theme";
+import { RatingQuestionType, TextQuestionType } from "../_components/theme";
 
 export default function FeedbackFormPage() {
   return (
@@ -16,12 +16,20 @@ export default function FeedbackFormPage() {
 
         {/* Main Content Area */}
         <section className="flex-1 px-4 py-8 sm:px-6 lg:px-8">
-          <RatingQuestionType
-            label="Rate your experience:"
-            onRatingChange={(rating: number) =>
-              console.log("Selected rating:", rating)
-            }
-          />
+          <div className="space-y-8">
+            <RatingQuestionType
+              label="Rate your experience:"
+              onRatingChange={(rating: number) =>
+                console.log("Selected rating:", rating)
+              }
+            />
+            <TextQuestionType
+              label="What could be improved?"
+              placeholder="Enter your response"
+              multiline={true}
+              onTextChange={(text: string) => console.log("Text:", text)}
+            />
+          </div>
         </section>
 
         {/* Footer spacing */}
