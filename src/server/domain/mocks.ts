@@ -10,7 +10,7 @@ export const MockSurveyRepo: ISurveyRepo = {
   getSurvey: async () => {
     return {
       id: "1",
-      title: "Survey 1",
+      title: "Choppaluna Feedback Form",
       questions: [
         {
           key: "1",
