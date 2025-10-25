@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { api } from "../trpc/react";
 
 interface UseSubmitFeedbackProps {
@@ -15,13 +16,13 @@ export function useSubmitFeedback({
   isComplete,
 }: UseSubmitFeedbackProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const submitResponseMutation = api.survey.submitResponse.useMutation({
     onSuccess: (data) => {
       setIsSubmitting(false);
-      if (data.review) {
-        alert(data.review);
-      }
+      // Redirect to thank you page on successful submission
+      router.push("/thank-you");
     },
     onError: (error) => {
       setIsSubmitting(false);
