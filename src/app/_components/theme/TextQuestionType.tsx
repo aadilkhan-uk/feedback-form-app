@@ -43,7 +43,7 @@ export const TextQuestionType: React.FC<TextQuestionTypeProps> = ({
           onChange={(e) => handleTextChange(e.target.value)}
           placeholder={placeholder}
           maxLength={maxLength}
-          className={`w-full rounded-lg border bg-white/10 px-4 py-4 text-[var(--color-text-white)] transition-all duration-200 placeholder:text-[var(--color-text-muted)] hover:border-white/25 hover:bg-white/15 focus:border-[var(--color-accent-green)] focus:bg-white/15 focus:outline-none ${multiline ? "min-h-[120px] resize-y" : "h-14"} ${maxLength ? "pr-16" : ""} `}
+          className={`w-full rounded-lg border bg-white/10 px-2 py-4 text-[var(--color-text-white)] transition-all duration-200 placeholder:text-[var(--color-text-muted)] hover:border-white/25 hover:bg-white/15 focus:border-[var(--color-accent-green)] focus:bg-white/15 focus:outline-none ${multiline ? "min-h-[120px] resize-y" : "h-14"} ${maxLength ? "pr-16" : ""} `}
           aria-label={label}
         />
 
