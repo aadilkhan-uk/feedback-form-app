@@ -1,50 +1,23 @@
 "use client";
 
-import { useState } from "react";
 import { useSurvey } from "../../hooks/useSurvey";
 import { useFeedbackForm } from "../../hooks/useFeedbackForm";
+import { useSubmitFeedback } from "../../hooks/useSubmitFeedback";
 import { LoadingState, ErrorState, QuestionRenderer } from "../_components";
 import { FeedbackFormLayout } from "../_components/layouts/FeedbackFormLayout";
 import { Button, ProgressIndicator } from "../_components/theme";
-import { api } from "../../trpc/react";
 
 export default function FeedbackFormPage() {
   const { survey, isLoading, error } = useSurvey();
   const { formState, updateResponse } = useFeedbackForm({
     totalQuestions: survey?.questions.length || 0,
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submitResponseMutation = api.survey.submitResponse.useMutation({
-    onSuccess: (data) => {
-      setIsSubmitting(false);
-      if (data.review) {
-        alert(data.review);
-      }
-    },
-    onError: (error) => {
-      setIsSubmitting(false);
-      alert(`Error submitting feedback: ${error.message}`);
-    },
+  const { isSubmitting, handleSubmit, canSubmit } = useSubmitFeedback({
+    surveyId: survey?.surveyId || 0,
+    responses: formState.responses,
+    isComplete: formState.isComplete,
   });
-
-  const handleSubmit = async () => {
-    if (!survey || !formState.isComplete) return;
-
-    setIsSubmitting(true);
-
-    const answers = Object.entries(formState.responses).map(
-      ([questionId, response]) => ({
-        questionId: parseInt(questionId),
-        response,
-      }),
-    );
-
-    submitResponseMutation.mutate({
-      surveyId: survey.surveyId,
-      answers,
-    });
-  };
 
   if (isLoading) {
     return (
@@ -99,11 +72,11 @@ export default function FeedbackFormPage() {
         <div className="flex justify-center pt-6">
           <Button
             className={`transition-all duration-300 ${
-              formState.isComplete && !isSubmitting
+              canSubmit
                 ? "scale-105 shadow-[var(--color-accent-pink)]/25 shadow-lg"
                 : "opacity-70"
             }`}
-            disabled={!formState.isComplete || isSubmitting}
+            disabled={!canSubmit}
             onClick={handleSubmit}
           >
             {isSubmitting ? "Submitting..." : "Submit Feedback"}
