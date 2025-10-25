@@ -21,6 +21,10 @@ export function useSubmitFeedback({
   const submitResponseMutation = api.survey.submitResponse.useMutation({
     onSuccess: (data) => {
       setIsSubmitting(false);
+      // Store the review in localStorage to pass to thank you page
+      if (data.review) {
+        localStorage.setItem("feedbackReview", data.review);
+      }
       // Redirect to thank you page on successful submission
       router.push("/thank-you");
     },
