@@ -10,7 +10,7 @@ export const MockReviewService: IReviewService = {
 export const MockSurveyRepo: ISurveyRepo = {
   getSurvey: async () => {
     return {
-      surveyId: 1,
+      surveyId: "cmh6n4gvs0001bqhqz51kovhx",
       title: "Choppaluna Feedback Form",
       questions: [
         {
@@ -40,7 +40,7 @@ export const MockSurveyRepo: ISurveyRepo = {
 
 export const MockResponseRepo: IResponseRepo = {
   submitResponse: async (data: {
-    surveyId: number;
+    surveyId: string;
     answers: SurveyQuestionResponse[];
   }) => {
     return { id: 1 };

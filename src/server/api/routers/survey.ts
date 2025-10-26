@@ -1,9 +1,9 @@
 import { createTRPCRouter, publicProcedure } from "root/server/api/trpc";
 import { z } from "zod";
-import { MockReviewService, MockResponseRepo } from "root/server/domain/mocks";
 import { SurveyRepo } from "root/server/services/SurveyRepo";
 import type { SurveyQuestionResponse } from "root/server/domain/types";
 import { ResponseRepo } from "root/server/services/ResponseRepo";
+import { ReviewService } from "root/server/services/ReviewService";
 
 export const surveyRouter = createTRPCRouter({
   /**
@@ -56,9 +56,7 @@ export const surveyRouter = createTRPCRouter({
         });
 
         // Generate written review based on feedback
-        const review = await MockReviewService.generateWrittenReview(
-          input.answers,
-        );
+        const review = await ReviewService.generateWrittenReview(input.answers);
 
         // Return response and review
         return {
