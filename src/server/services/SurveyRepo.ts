@@ -61,7 +61,7 @@ function mapPrismaSurveyToDomain(prismaSurvey: {
   const questions = sortedQuestions.map(mapPrismaQuestionToDomain);
 
   return {
-    surveyId: 1, // Using 1 for now since domain expects a number
+    surveyId: prismaSurvey.id,
     title: prismaSurvey.title,
     questions,
   };

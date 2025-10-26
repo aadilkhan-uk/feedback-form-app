@@ -10,7 +10,7 @@ export interface ISurveyRepo {
 
 export interface IResponseRepo {
   submitResponse(data: {
-    surveyId: number;
+    surveyId: string;
     answers: SurveyQuestionResponse[];
   }): Promise<{ id: number }>;
 }

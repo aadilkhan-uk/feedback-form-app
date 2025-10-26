@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { api } from "../trpc/react";
 
 interface UseSubmitFeedbackProps {
-  surveyId: number;
+  surveyId: string;
   responses: Record<number, string | number>;
   isComplete: boolean;
 }

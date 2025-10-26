@@ -7,7 +7,7 @@ export interface SurveyQuestion {
 }
 
 export interface Survey {
-  surveyId: number;
+  surveyId: string;
   title: string;
   questions: SurveyQuestion[];
 }
@@ -18,6 +18,6 @@ export interface SurveyQuestionResponse {
 }
 
 export interface SurveyResponse {
-  surveyId: number;
+  surveyId: string;
   responses: SurveyQuestionResponse[];
 }

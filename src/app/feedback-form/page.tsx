@@ -14,7 +14,7 @@ export default function FeedbackFormPage() {
   });
 
   const { isSubmitting, handleSubmit, canSubmit } = useSubmitFeedback({
-    surveyId: survey?.surveyId || 0,
+    surveyId: survey?.surveyId || "",
     responses: formState.responses,
     isComplete: formState.isComplete,
   });
