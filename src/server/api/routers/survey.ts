@@ -1,15 +1,12 @@
 import { createTRPCRouter, publicProcedure } from "root/server/api/trpc";
 import { z } from "zod";
-import {
-  MockReviewService,
-  MockResponseRepo,
-  MockSurveyRepo,
-} from "root/server/domain/mocks";
+import { MockReviewService, MockResponseRepo } from "root/server/domain/mocks";
+import { SurveyRepo } from "root/server/services/SurveyRepo";
 import type { SurveyQuestionResponse } from "root/server/domain/types";
 
 export const surveyRouter = createTRPCRouter({
   getSurvey: publicProcedure.query(async () => {
-    return MockSurveyRepo.getSurvey();
+    return SurveyRepo.getSurvey();
   }),
 
   submitResponse: publicProcedure
