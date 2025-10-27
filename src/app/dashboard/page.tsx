@@ -2,10 +2,11 @@
 
 import { useEffect } from "react";
 import { useResponses } from "root/hooks/useResponses";
+import { ResponseDetailsChart } from "./_components/ResponseDetailsChart";
 
 export default function DashboardPage() {
-  // Fetch responses data for the past week
-  const { data } = useResponses(7);
+  // Fetch responses data for the past 30 days (better for chart data)
+  const { data, isLoading } = useResponses(30);
 
   // Console log the data when it's loaded
   useEffect(() => {
@@ -122,35 +123,10 @@ export default function DashboardPage() {
         </div>
 
         {/* Chart Section */}
-        <div className="rounded-xl bg-white p-6 shadow-sm">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-[#222222]">
-              Response Details
-            </h2>
-            {/* Dropdown placeholder */}
-            <div className="flex items-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-2">
-              <span className="text-sm text-gray-700">October</span>
-              <svg
-                className="h-4 w-4 text-gray-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </div>
-          </div>
-
-          {/* Chart placeholder */}
-          <div className="flex h-80 w-full items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-100">
-            <p className="text-gray-400">Chart placeholder</p>
-          </div>
-        </div>
+        <ResponseDetailsChart
+          responses={data?.responses ?? []}
+          loading={isLoading}
+        />
       </div>
     </div>
   );
