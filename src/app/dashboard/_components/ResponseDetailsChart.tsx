@@ -15,7 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from "root/components/ui/card";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid } from "recharts";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Dot } from "recharts";
 
 interface ResponseDetailsChartProps {
   responses: SubmissionWithAnswers[];
@@ -111,15 +111,17 @@ export function ResponseDetailsChart({
 
   return (
     <Card>
-      <CardHeader>
+      <div className="px-6 py-4">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <CardTitle>Response Details</CardTitle>
-            <CardDescription>
+            <h3 className="text-lg leading-none font-semibold">
+              Response Details
+            </h3>
+            <p className="mt-1 text-sm text-gray-600">
               Total responses: {responses.length}
-            </CardDescription>
+            </p>
           </div>
-          <div className="flex flex-col gap-2 sm:flex-row">
+          <div className="flex flex-col gap-2 sm:flex-row md:ml-auto">
             <input
               type="date"
               value={startDate}
@@ -140,7 +142,7 @@ export function ResponseDetailsChart({
             />
           </div>
         </div>
-      </CardHeader>
+      </div>
       <CardContent>
         {chartData.length === 0 ? (
           <div className="flex h-80 items-center justify-center">
@@ -149,16 +151,34 @@ export function ResponseDetailsChart({
         ) : (
           <ChartContainer config={chartConfig} className="h-80 w-full">
             <AreaChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" />
-              <YAxis />
-              <ChartTooltip content={<ChartTooltipContent />} />
+              <defs>
+                <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+              <XAxis
+                dataKey="date"
+                tick={{ fill: "#6B7280", fontSize: 12 }}
+                axisLine={{ stroke: "#D1D5DB" }}
+              />
+              <YAxis
+                tick={{ fill: "#6B7280", fontSize: 12 }}
+                axisLine={{ stroke: "#D1D5DB" }}
+              />
+              <ChartTooltip
+                content={<ChartTooltipContent />}
+                labelStyle={{ color: "#374151" }}
+              />
               <Area
                 type="monotone"
                 dataKey="count"
                 stroke="#3B82F6"
-                fill="#3B82F6"
-                fillOpacity={0.2}
+                strokeWidth={2}
+                fill="url(#colorCount)"
+                dot={{ fill: "#3B82F6", r: 4 }}
+                activeDot={{ r: 6 }}
               />
             </AreaChart>
           </ChartContainer>
