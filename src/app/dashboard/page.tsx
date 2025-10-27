@@ -1,4 +1,30 @@
+"use client";
+
+import { useEffect, useMemo } from "react";
+import { api } from "root/trpc/react";
+
 export default function DashboardPage() {
+  // Calculate date range for past week - memoized to prevent unnecessary refetches
+  const { startDate, endDate } = useMemo(() => {
+    const endDate = new Date();
+    const startDate = new Date();
+    startDate.setDate(endDate.getDate() - 7);
+    return { startDate, endDate };
+  }, []);
+
+  // Fetch responses data
+  const { data } = api.survey.getResponsesByDateRange.useQuery({
+    startDate,
+    endDate,
+  });
+
+  // Console log the data when it's loaded
+  useEffect(() => {
+    if (data) {
+      console.log("Responses data:", data);
+    }
+  }, [data]);
+
   return (
     <div className="min-h-screen bg-[#F8F8F8]">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">

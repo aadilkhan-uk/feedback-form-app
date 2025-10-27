@@ -70,4 +70,25 @@ export const surveyRouter = createTRPCRouter({
         message: "No answers provided",
       };
     }),
+
+  /**
+   * Retrieves the total count of responses
+   */
+  getTotalResponseCount: publicProcedure.query(async () => {
+    return ResponseRepo.getTotalResponseCount();
+  }),
+
+  /**
+   * Retrieves responses within a date range
+   */
+  getResponsesByDateRange: publicProcedure
+    .input(
+      z.object({
+        startDate: z.date(),
+        endDate: z.date(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return ResponseRepo.getResponsesByDateRange(input);
+    }),
 });
