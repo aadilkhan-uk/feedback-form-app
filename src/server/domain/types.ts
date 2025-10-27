@@ -21,3 +21,18 @@ export interface SurveyResponse {
   surveyId: string;
   responses: SurveyQuestionResponse[];
 }
+
+export interface AnswerData {
+  questionId: number;
+  questionLabel: string;
+  questionType: QuestionType;
+  textValue: string | null;
+  ratingValue: number | null;
+}
+
+export interface SubmissionWithAnswers {
+  id: string;
+  surveyId: string;
+  createdAt: Date;
+  answers: AnswerData[];
+}
