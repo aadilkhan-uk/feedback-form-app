@@ -91,4 +91,15 @@ export const surveyRouter = createTRPCRouter({
     .query(async ({ input }) => {
       return ResponseRepo.getResponsesByDateRange(input);
     }),
+
+  /**
+   * Submits a Google redirect event to increment the counter
+   */
+  submitGoogleRedirect: publicProcedure.mutation(async () => {
+    return ResponseRepo.submitGoogleRedirect();
+  }),
+
+  getGoogleRedirects: publicProcedure.query(async () => {
+    return SurveyRepo.getGoogleRedirects();
+  }),
 });

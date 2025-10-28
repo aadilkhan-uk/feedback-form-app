@@ -3,10 +3,14 @@
 import { useState, useEffect } from "react";
 import { FeedbackFormLayout } from "../_components/layouts/FeedbackFormLayout";
 import { Button } from "../_components/theme";
+import { api } from "../../trpc/react";
 
 export default function ThankYouPage() {
   const [review, setReview] = useState("");
   const [copySuccess, setCopySuccess] = useState(false);
+
+  const submitGoogleRedirectMutation =
+    api.survey.submitGoogleRedirect.useMutation();
 
   useEffect(() => {
     // Get the review from localStorage
@@ -28,7 +32,16 @@ export default function ThankYouPage() {
     }
   };
 
-  const handleLeaveOnGoogle = () => {
+  const handleLeaveOnGoogle = async () => {
+    // Submit the Google redirect event
+    try {
+      const result = await submitGoogleRedirectMutation.mutateAsync();
+      console.log("Google redirect submitted:", result);
+    } catch (error) {
+      console.error("Error submitting Google redirect:", error);
+    }
+
+    // Open Google in a new tab
     const googleUrl =
       "https://www.google.com/search?sca_esv=d19d5628732e2c11&sxsrf=AE3TifOXI8zItOc-C2J5LAlMhtBd4ZNX1A:1761404218591&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E6sASdczsL_FYSeNII_tGaxhy8LNnDGutrI38Qzt45baZy-zfd5CqHA4-JSRoZL-1hwFWw77z-ZS5CdukfyBA2RpVKn5U0NhZ0yNRsHA0YlCxEPX2A%3D%3D&q=Choppaluna+-+Wembley+Reviews&sa=X&ved=2ahUKEwjA9YSGzr-QAxVsREEAHXwRLn0Q0bkNegQIIhAE&biw=1440&bih=778&dpr=2";
     window.open(googleUrl, "_blank", "noopener,noreferrer");

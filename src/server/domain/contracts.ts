@@ -10,6 +10,7 @@ export interface IReviewService {
 
 export interface ISurveyRepo {
   getSurvey(): Promise<Survey | null>;
+  getGoogleRedirects(): Promise<{ count: number }>;
 }
 
 export interface IResponseRepo {
@@ -22,6 +23,8 @@ export interface IResponseRepo {
     count: number;
     changePercent: number | null;
   }>;
+
+  submitGoogleRedirect(): Promise<{ success: boolean }>;
 
   getResponsesByDateRange(params: { startDate: Date; endDate: Date }): Promise<{
     count: number;

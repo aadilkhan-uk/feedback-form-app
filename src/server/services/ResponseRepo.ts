@@ -197,4 +197,24 @@ export const ResponseRepo: IResponseRepo = {
       responses,
     };
   },
+
+  submitGoogleRedirect: async function (): Promise<{ success: boolean }> {
+    try {
+      // Increment the googleRedirects field for the hardcoded survey
+      const result = await db.survey.update({
+        where: { id: HARDCODED_SURVEY_DB_ID },
+        data: {
+          googleRedirects: {
+            increment: 1,
+          },
+        },
+      });
+
+      console.log("Google redirects incremented to:", result.googleRedirects);
+      return { success: true };
+    } catch (error) {
+      console.error("Error incrementing googleRedirects:", error);
+      throw error;
+    }
+  },
 };

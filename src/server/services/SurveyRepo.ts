@@ -68,6 +68,23 @@ function mapPrismaSurveyToDomain(prismaSurvey: {
 }
 
 export const SurveyRepo: ISurveyRepo = {
+  async getGoogleRedirects() {
+    try {
+      const survey = await db.survey.findUnique({
+        where: { id: "cmh6n4gvs0001bqhqz51kovhx" },
+      });
+
+      if (!survey) {
+        return { count: 0 };
+      }
+
+      return { count: survey.googleRedirects };
+    } catch (error) {
+      console.error("Error fetching google redirects:", error);
+      return { count: 0 };
+    }
+  },
+
   async getSurvey() {
     try {
       const survey = await db.survey.findUnique({

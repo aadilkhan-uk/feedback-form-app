@@ -31,12 +31,13 @@ model Restaurant {
 }
 
 model Survey {
-  id           String      @id @default(cuid())          // survey ID
-  title        String
-  slug         String      @unique                       // for /s/[slug]
-  isActive     Boolean     @default(true)
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  id              String      @id @default(cuid())          // survey ID
+  title           String
+  slug            String      @unique                       // for /s/[slug]
+  isActive        Boolean     @default(true)
+  googleRedirects Int         @default(0)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 
   // FK
   restaurantId String?

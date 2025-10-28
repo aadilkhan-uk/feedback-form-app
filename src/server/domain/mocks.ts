@@ -8,6 +8,10 @@ export const MockReviewService: IReviewService = {
 };
 
 export const MockSurveyRepo: ISurveyRepo = {
+  getGoogleRedirects: async function (): Promise<{ count: number }> {
+    return { count: 100 };
+  },
+
   getSurvey: async () => {
     return {
       surveyId: "cmh6n4gvs0001bqhqz51kovhx",
@@ -101,5 +105,9 @@ export const MockResponseRepo: IResponseRepo = {
       count: mockResponses.length,
       responses: mockResponses,
     };
+  },
+
+  submitGoogleRedirect: async function (): Promise<{ success: boolean }> {
+    return { success: true };
   },
 };
