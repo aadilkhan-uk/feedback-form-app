@@ -18,7 +18,10 @@ export interface IResponseRepo {
     answers: SurveyQuestionResponse[];
   }): Promise<{ id: number }>;
 
-  getTotalResponseCount(): Promise<number>;
+  getTotalResponseCount(): Promise<{
+    count: number;
+    changePercent: number | null;
+  }>;
 
   getResponsesByDateRange(params: { startDate: Date; endDate: Date }): Promise<{
     count: number;

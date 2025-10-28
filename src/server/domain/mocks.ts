@@ -47,8 +47,11 @@ export const MockResponseRepo: IResponseRepo = {
   },
 
   getTotalResponseCount: async () => {
-    // Mock implementation - returns a dummy count
-    return 42;
+    // Mock implementation - returns a dummy count with change percent
+    return {
+      count: 42,
+      changePercent: 8.5,
+    };
   },
 
   getResponsesByDateRange: async (params: {

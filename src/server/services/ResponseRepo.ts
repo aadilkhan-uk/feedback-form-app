@@ -72,7 +72,51 @@ export const ResponseRepo: IResponseRepo = {
   },
 
   getTotalResponseCount: async () => {
-    return db.submission.count();
+    const totalCount = await db.submission.count();
+
+    // Calculate date ranges for today and yesterday
+    const now = new Date();
+    const todayStart = new Date(now);
+    todayStart.setHours(0, 0, 0, 0);
+
+    const yesterdayStart = new Date(todayStart);
+    yesterdayStart.setDate(yesterdayStart.getDate() - 1);
+    const yesterdayEnd = new Date(yesterdayStart);
+    yesterdayEnd.setHours(23, 59, 59, 999);
+
+    // Get counts for today and yesterday
+    const [todayCount, yesterdayCount] = await Promise.all([
+      db.submission.count({
+        where: {
+          createdAt: {
+            gte: todayStart,
+          },
+        },
+      }),
+      db.submission.count({
+        where: {
+          createdAt: {
+            gte: yesterdayStart,
+            lte: yesterdayEnd,
+          },
+        },
+      }),
+    ]);
+
+    // Calculate percentage change
+    // Returns null if there are no submissions yesterday (can't calculate change)
+    let changePercent: number | null = null;
+    if (yesterdayCount > 0) {
+      changePercent = ((todayCount - yesterdayCount) / yesterdayCount) * 100;
+    } else if (todayCount > 0 && yesterdayCount === 0) {
+      // If there are submissions today but none yesterday, return a large positive number
+      changePercent = 100;
+    }
+
+    return {
+      count: totalCount,
+      changePercent,
+    };
   },
 
   getResponsesByDateRange: async (params: {
