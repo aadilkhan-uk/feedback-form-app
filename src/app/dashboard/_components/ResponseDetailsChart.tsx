@@ -80,11 +80,18 @@ export function ResponseDetailsChart({
 
   if (loading) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Response Details</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <Card className="shadow-sm">
+        <div className="px-6 py-4">
+          <div>
+            <h3 className="text-lg leading-none font-semibold text-gray-900">
+              Response Details
+            </h3>
+            <p className="mt-1 text-sm text-gray-600">
+              Total responses: {responses.length}
+            </p>
+          </div>
+        </div>
+        <CardContent className="px-6 pb-6">
           <div className="flex h-80 items-center justify-center">
             <p className="text-gray-400">Loading...</p>
           </div>
@@ -94,10 +101,10 @@ export function ResponseDetailsChart({
   }
 
   return (
-    <Card>
+    <Card className="shadow-sm">
       <div className="px-6 py-4">
         <div>
-          <h3 className="text-lg leading-none font-semibold">
+          <h3 className="text-lg leading-none font-semibold text-gray-900">
             Response Details
           </h3>
           <p className="mt-1 text-sm text-gray-600">
@@ -105,7 +112,7 @@ export function ResponseDetailsChart({
           </p>
         </div>
       </div>
-      <CardContent>
+      <CardContent className="px-6 pb-6">
         {chartData.length === 0 ? (
           <div className="flex h-80 items-center justify-center">
             <p className="text-gray-400">No data available for this period</p>

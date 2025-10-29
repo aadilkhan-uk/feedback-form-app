@@ -22,7 +22,7 @@ export function TotalResponsesCard() {
   const changeArrow = typeof changePercent === "number" && changePercent >= 0;
 
   return (
-    <div className="relative overflow-hidden rounded-xl bg-white p-6 shadow-sm">
+    <div className="relative overflow-hidden rounded-xl bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md">
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <p className="text-sm font-medium text-gray-600">Total Responses</p>

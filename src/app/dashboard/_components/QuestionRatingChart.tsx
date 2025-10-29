@@ -113,9 +113,9 @@ export function QuestionRatingChart({
 
   if (loading) {
     return (
-      <Card>
+      <Card className="shadow-sm">
         <div className="px-3 py-4 sm:px-6">
-          <CardTitle className="text-base text-gray-900">
+          <CardTitle className="text-base font-semibold text-gray-900">
             {questionLabel}
           </CardTitle>
         </div>
@@ -131,9 +131,9 @@ export function QuestionRatingChart({
   const totalResponses = chartData.reduce((sum, d) => sum + d.count, 0);
 
   return (
-    <Card className="shadow-sm">
+    <Card className="shadow-sm transition-all duration-300 hover:shadow-md">
       <div className="px-3 py-4 sm:px-6">
-        <CardTitle className="text-base text-gray-900">
+        <CardTitle className="text-base font-semibold text-gray-900">
           {questionLabel}
         </CardTitle>
       </div>
