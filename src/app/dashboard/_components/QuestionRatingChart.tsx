@@ -23,6 +23,7 @@ interface QuestionRatingChartProps {
   startDate: string;
   endDate: string;
   loading?: boolean;
+  color?: string;
 }
 
 export function QuestionRatingChart({
@@ -32,7 +33,29 @@ export function QuestionRatingChart({
   startDate,
   endDate,
   loading = false,
+  color = "blue",
 }: QuestionRatingChartProps) {
+  const colorMap = {
+    blue: {
+      primary: "#3B82F6",
+      secondary: "#2563EB",
+    },
+    purple: {
+      primary: "#9333EA",
+      secondary: "#7E22CE",
+    },
+    orange: {
+      primary: "#F97316",
+      secondary: "#EA580C",
+    },
+    emerald: {
+      primary: "#10B981",
+      secondary: "#059669",
+    },
+  };
+
+  const chartColors = colorMap[color as keyof typeof colorMap] || colorMap.blue;
+
   const chartData = useMemo(() => {
     // Filter responses by date range
     let filteredResponses = responses;
@@ -91,12 +114,12 @@ export function QuestionRatingChart({
   if (loading) {
     return (
       <Card>
-        <div className="px-6 py-4">
+        <div className="px-3 py-4 sm:px-6">
           <CardTitle className="text-base text-gray-900">
             {questionLabel}
           </CardTitle>
         </div>
-        <CardContent className="px-6 pb-6">
+        <CardContent className="px-3 pb-6 sm:px-6">
           <div className="flex min-h-[280px] items-center justify-center sm:h-80">
             <p className="text-gray-400">Loading...</p>
           </div>
@@ -109,23 +132,23 @@ export function QuestionRatingChart({
 
   return (
     <Card className="shadow-sm">
-      <div className="px-6 py-4">
+      <div className="px-3 py-4 sm:px-6">
         <CardTitle className="text-base text-gray-900">
           {questionLabel}
         </CardTitle>
       </div>
-      <CardContent className="px-6 pb-6">
+      <CardContent className="px-3 pb-6 sm:px-6">
         {totalResponses === 0 ? (
           <div className="flex min-h-[280px] items-center justify-center">
             <p className="text-sm text-gray-400">No data available</p>
           </div>
         ) : (
-          <div className="min-h-[280px] w-full rounded-lg border-2 border-blue-500 p-2 sm:h-80">
+          <div className="min-h-[280px] w-full rounded-lg px-1 py-2 sm:h-80 sm:px-2">
             <ChartContainer config={chartConfig} className="h-full w-full">
               <BarChart
                 data={chartData}
                 layout="vertical"
-                margin={{ left: 12, right: 12, top: 12, bottom: 12 }}
+                margin={{ left: 8, right: 20, top: 12, bottom: 12 }}
               >
                 <defs>
                   <linearGradient
@@ -135,8 +158,16 @@ export function QuestionRatingChart({
                     x2="1"
                     y2="0"
                   >
-                    <stop offset="5%" stopColor="#3B82F6" stopOpacity={1} />
-                    <stop offset="95%" stopColor="#2563EB" stopOpacity={1} />
+                    <stop
+                      offset="5%"
+                      stopColor={chartColors.primary}
+                      stopOpacity={1}
+                    />
+                    <stop
+                      offset="95%"
+                      stopColor={chartColors.secondary}
+                      stopOpacity={1}
+                    />
                   </linearGradient>
                 </defs>
                 <CartesianGrid
@@ -157,7 +188,7 @@ export function QuestionRatingChart({
                   tick={{ fill: "#6B7280", fontSize: 12 }}
                   axisLine={false}
                   tickLine={{ stroke: "#D1D5DB" }}
-                  width={40}
+                  width={30}
                 />
                 <ChartTooltip
                   content={<ChartTooltipContent hideLabel />}

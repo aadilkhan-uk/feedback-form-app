@@ -84,6 +84,7 @@ export default function DashboardPage() {
             startDate={startDate}
             endDate={endDate}
             loading={isLoading}
+            color="blue"
           />
           <QuestionRatingChart
             questionId={2}
@@ -92,6 +93,7 @@ export default function DashboardPage() {
             startDate={startDate}
             endDate={endDate}
             loading={isLoading}
+            color="purple"
           />
           <QuestionRatingChart
             questionId={3}
@@ -100,6 +102,7 @@ export default function DashboardPage() {
             startDate={startDate}
             endDate={endDate}
             loading={isLoading}
+            color="orange"
           />
         </div>
       </div>
