@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import type { SubmissionWithAnswers } from "root/server/domain/types";
 import {
   type ChartConfig,
@@ -11,27 +11,27 @@ import {
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "root/components/ui/card";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Dot } from "recharts";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid } from "recharts";
 
 interface ResponseDetailsChartProps {
   responses: SubmissionWithAnswers[];
+  startDate: string;
+  endDate: string;
   loading?: boolean;
 }
 
 export function ResponseDetailsChart({
   responses,
+  startDate,
+  endDate,
   loading = false,
 }: ResponseDetailsChartProps) {
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-
   // Process responses to group by date
   const chartData = useMemo(() => {
-    // Filter responses by date range if dates are selected
+    // Filter responses by date range
     let filteredResponses = responses;
 
     if (startDate && endDate) {
@@ -78,22 +78,6 @@ export function ResponseDetailsChart({
     },
   } satisfies ChartConfig;
 
-  // Get default min/max dates for the inputs
-  const defaultDates = useMemo(() => {
-    if (responses.length === 0) {
-      return { min: "", max: "" };
-    }
-
-    const dates = responses.map((r) => new Date(r.createdAt));
-    const min = new Date(Math.min(...dates.map((d) => d.getTime())));
-    const max = new Date(Math.max(...dates.map((d) => d.getTime())));
-
-    return {
-      min: min.toISOString().split("T")[0],
-      max: max.toISOString().split("T")[0],
-    };
-  }, [responses]);
-
   if (loading) {
     return (
       <Card>
@@ -112,35 +96,13 @@ export function ResponseDetailsChart({
   return (
     <Card>
       <div className="px-6 py-4">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h3 className="text-lg leading-none font-semibold">
-              Response Details
-            </h3>
-            <p className="mt-1 text-sm text-gray-600">
-              Total responses: {responses.length}
-            </p>
-          </div>
-          <div className="flex flex-col gap-2 sm:flex-row md:ml-auto">
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              min={defaultDates.min}
-              max={defaultDates.max}
-              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none sm:w-auto"
-              placeholder="Start date"
-            />
-            <input
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              min={startDate || defaultDates.min}
-              max={defaultDates.max}
-              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none sm:w-auto"
-              placeholder="End date"
-            />
-          </div>
+        <div>
+          <h3 className="text-lg leading-none font-semibold">
+            Response Details
+          </h3>
+          <p className="mt-1 text-sm text-gray-600">
+            Total responses: {responses.length}
+          </p>
         </div>
       </div>
       <CardContent>
