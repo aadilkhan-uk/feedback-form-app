@@ -60,7 +60,7 @@ Survey Responses:
 ${responseText}
 
 Please provide an objective, honest assessment based solely on these responses. 
-Include the objective score prominently in your review. 
+Do not include the ratings out of 5 in your review.
 Be specific about what the customer liked or didn't like based on their actual responses.
 Add some character to your review, don't be too formal. 
 Also dont make it more than 240 characters.`;
