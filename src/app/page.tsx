@@ -1,9 +1,5 @@
-import Link from "next/link";
-
-import { LatestPost } from "root/app/_components/post";
 import { auth } from "root/server/auth";
-import { api, HydrateClient } from "root/trpc/server";
-import { Button, Banner, Card, Footer } from "root/app/_components/theme";
+import { HydrateClient } from "root/trpc/server";
 
 export default async function Home() {
   const session = await auth();
