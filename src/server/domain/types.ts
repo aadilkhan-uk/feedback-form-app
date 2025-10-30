@@ -4,6 +4,7 @@ export interface SurveyQuestion {
   questionId: number;
   label: string;
   type: QuestionType;
+  required: boolean;
 }
 
 export interface Survey {

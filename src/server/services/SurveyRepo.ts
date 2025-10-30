@@ -35,6 +35,7 @@ function mapPrismaQuestionToDomain(
     questionId,
     label: prismaQuestion.label,
     type: mapQuestionType(prismaQuestion.type),
+    required: prismaQuestion.required,
   };
 }
 

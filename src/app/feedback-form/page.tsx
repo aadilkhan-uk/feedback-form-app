@@ -10,7 +10,7 @@ import { Button, ProgressIndicator } from "../_components/theme";
 export default function FeedbackFormPage() {
   const { survey, isLoading, error } = useSurvey();
   const { formState, updateResponse } = useFeedbackForm({
-    totalQuestions: survey?.questions.length || 0,
+    questions: survey?.questions || [],
   });
 
   const { isSubmitting, handleSubmit, canSubmit } = useSubmitFeedback({

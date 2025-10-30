@@ -7,6 +7,7 @@ interface QuestionRendererProps {
     questionId: number;
     type: "rating" | "text";
     label: string;
+    required: boolean;
   };
   questionNumber: number;
   isCompleted: boolean;
@@ -26,6 +27,7 @@ export function QuestionRenderer({
       <QuestionWrapper
         questionNumber={questionNumber}
         isCompleted={isCompleted}
+        isRequired={question.required}
       >
         <RatingQuestionType
           label={question.label}
@@ -42,6 +44,7 @@ export function QuestionRenderer({
       <QuestionWrapper
         questionNumber={questionNumber}
         isCompleted={isCompleted}
+        isRequired={question.required}
       >
         <TextQuestionType
           className="flex-1"

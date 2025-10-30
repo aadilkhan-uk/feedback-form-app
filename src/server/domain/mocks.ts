@@ -21,21 +21,25 @@ export const MockSurveyRepo: ISurveyRepo = {
           questionId: 1,
           label: "How do you feel about the product?",
           type: "rating",
+          required: true,
         },
         {
           questionId: 2,
           label: "How was your service today?",
           type: "rating",
+          required: true,
         },
         {
           questionId: 3,
           label: "How was your experience today?",
           type: "rating",
+          required: false,
         },
         {
           questionId: 4,
           label: "What did you like about your service today?",
           type: "text",
+          required: false,
         },
       ],
     };

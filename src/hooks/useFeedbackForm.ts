@@ -1,6 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
+
+interface Question {
+  questionId: number;
+  required: boolean;
+}
 
 interface FormState {
   responses: Record<number, string | number>;
@@ -10,10 +15,10 @@ interface FormState {
 }
 
 interface UseFeedbackFormProps {
-  totalQuestions: number;
+  questions: Question[];
 }
 
-export function useFeedbackForm({ totalQuestions }: UseFeedbackFormProps) {
+export function useFeedbackForm({ questions }: UseFeedbackFormProps) {
   const [responses, setResponses] = useState<Record<number, string | number>>(
     {},
   );
@@ -28,13 +33,32 @@ export function useFeedbackForm({ totalQuestions }: UseFeedbackFormProps) {
     [],
   );
 
-  const completedQuestions = Object.keys(responses).length;
-  const isComplete = completedQuestions === totalQuestions;
+  const { requiredQuestions, totalRequiredQuestions } = useMemo(() => {
+    const required = questions.filter((q) => q.required);
+    return {
+      requiredQuestions: required,
+      totalRequiredQuestions: required.length,
+    };
+  }, [questions]);
+
+  // Count completed required questions for progress
+  const completedRequiredQuestions = useMemo(() => {
+    return requiredQuestions.filter(
+      (q) => responses[q.questionId] !== undefined,
+    ).length;
+  }, [requiredQuestions, responses]);
+
+  // Check if all required questions are answered
+  const isComplete = useMemo(() => {
+    return requiredQuestions.every(
+      (q) => responses[q.questionId] !== undefined,
+    );
+  }, [requiredQuestions, responses]);
 
   const formState: FormState = {
     responses,
-    completedQuestions,
-    totalQuestions,
+    completedQuestions: completedRequiredQuestions,
+    totalQuestions: totalRequiredQuestions,
     isComplete,
   };
 

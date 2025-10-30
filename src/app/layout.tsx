@@ -30,11 +30,18 @@ export default function RootLayout({
               <header className="bg-white py-3">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                   <div className="flex justify-center">
-                    <img
-                      src="/assets/logo.png"
-                      alt="Company Logo"
-                      className="h-auto w-20 max-w-48"
-                    />
+                    <a
+                      href="https://choppaluna.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-opacity hover:opacity-80"
+                    >
+                      <img
+                        src="/assets/logo.png"
+                        alt="Company Logo"
+                        className="h-auto w-20 max-w-48"
+                      />
+                    </a>
                   </div>
                 </div>
               </header>
