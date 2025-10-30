@@ -15,12 +15,37 @@ export default function DashboardPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
+  // Fetch responses data for the past 30 days (better for chart data)
+  const { data, isLoading } = useResponses(30);
+
+  // Default date range: last 30 days
+  const defaultStartDate = useMemo(
+    () => format(subDays(new Date(), 30), "yyyy-MM-dd"),
+    [],
+  );
+  const defaultEndDate = useMemo(() => format(new Date(), "yyyy-MM-dd"), []);
+
+  const [startDate, setStartDate] = useState(defaultStartDate);
+  const [endDate, setEndDate] = useState(defaultEndDate);
+
   // Redirect to login if not authenticated
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login");
     }
   }, [status, router]);
+
+  // Console log the data when it's loaded
+  useEffect(() => {
+    if (data) {
+      console.log("Responses data:", data);
+    }
+  }, [data]);
+
+  const handleDateRangeChange = (start: string, end: string) => {
+    setStartDate(start);
+    setEndDate(end);
+  };
 
   // Show loading state while checking authentication
   if (status === "loading") {
@@ -38,30 +63,6 @@ export default function DashboardPage() {
   if (!session) {
     return null;
   }
-  // Fetch responses data for the past 30 days (better for chart data)
-  const { data, isLoading } = useResponses(30);
-
-  // Console log the data when it's loaded
-  useEffect(() => {
-    if (data) {
-      console.log("Responses data:", data);
-    }
-  }, [data]);
-
-  // Default date range: last 30 days
-  const defaultStartDate = useMemo(
-    () => format(subDays(new Date(), 30), "yyyy-MM-dd"),
-    [],
-  );
-  const defaultEndDate = useMemo(() => format(new Date(), "yyyy-MM-dd"), []);
-
-  const [startDate, setStartDate] = useState(defaultStartDate);
-  const [endDate, setEndDate] = useState(defaultEndDate);
-
-  const handleDateRangeChange = (start: string, end: string) => {
-    setStartDate(start);
-    setEndDate(end);
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-50 to-purple-50">
