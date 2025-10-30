@@ -2,6 +2,7 @@ import "root/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
+import { SessionProvider } from "next-auth/react";
 
 import { TRPCReactProvider } from "root/trpc/react";
 
@@ -22,25 +23,27 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geist.variable}`}>
       <body>
-        <TRPCReactProvider>
-          <div className="flex min-h-screen flex-col">
-            {/* Header Banner with Logo */}
-            <header className="bg-white py-3">
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-center">
-                  <img
-                    src="/assets/logo.png"
-                    alt="Company Logo"
-                    className="h-auto w-20 max-w-48"
-                  />
+        <SessionProvider>
+          <TRPCReactProvider>
+            <div className="flex min-h-screen flex-col">
+              {/* Header Banner with Logo */}
+              <header className="bg-white py-3">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                  <div className="flex justify-center">
+                    <img
+                      src="/assets/logo.png"
+                      alt="Company Logo"
+                      className="h-auto w-20 max-w-48"
+                    />
+                  </div>
                 </div>
-              </div>
-            </header>
+              </header>
 
-            {/* Main Content */}
-            <main className="flex-1">{children}</main>
-          </div>
-        </TRPCReactProvider>
+              {/* Main Content */}
+              <main className="flex-1">{children}</main>
+            </div>
+          </TRPCReactProvider>
+        </SessionProvider>
       </body>
     </html>
   );

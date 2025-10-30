@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   const [password, setPassword] = useState("");
@@ -14,16 +15,23 @@ export default function LoginPage() {
     setError("");
     setIsLoading(true);
 
-    // TODO: Add your authentication logic here
-    // For now, this is a placeholder
-    setTimeout(() => {
-      if (password === "demo") {
-        router.push("/dashboard");
-      } else {
+    try {
+      const result = await signIn("credentials", {
+        password,
+        redirect: false,
+      });
+
+      if (result?.error) {
         setError("Invalid password");
         setIsLoading(false);
+      } else if (result?.ok) {
+        router.push("/dashboard");
+        router.refresh();
       }
-    }, 500);
+    } catch (error) {
+      setError("An error occurred. Please try again.");
+      setIsLoading(false);
+    }
   };
 
   return (

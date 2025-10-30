@@ -1,6 +1,53 @@
-# Create T3 App
+# Feedback Form App
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+
+## 🔒 Authentication Setup
+
+This application uses password-based authentication to protect the dashboard. **You must configure the password before running the app.**
+
+### Quick Setup
+
+1. Create a `.env` file in the root directory:
+
+```bash
+cp .env.example .env  # or create manually
+```
+
+2. Add these required environment variables:
+
+```env
+DATABASE_URL="file:./prisma/db.sqlite"
+AUTH_SECRET="your-generated-secret-here"
+DASHBOARD_PASSWORD="your-secure-password-here"
+OPENAI_API_KEY="your-openai-key-here"
+NODE_ENV="development"
+```
+
+3. Generate a secure AUTH_SECRET:
+
+```bash
+openssl rand -base64 32
+```
+
+4. Choose a strong password for `DASHBOARD_PASSWORD` (minimum 8 characters)
+
+📖 **For detailed authentication setup instructions, see [AUTH_SETUP.md](./AUTH_SETUP.md)**
+
+## Getting Started
+
+```bash
+# Install dependencies
+pnpm install
+
+# Run database migrations
+pnpm db:push
+
+# Start development server
+pnpm dev
+```
+
+Visit `http://localhost:3000/login` to access the dashboard.
 
 ## What's next? How do I make an app with this?
 

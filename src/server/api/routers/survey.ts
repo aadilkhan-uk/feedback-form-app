@@ -1,4 +1,8 @@
-import { createTRPCRouter, publicProcedure } from "root/server/api/trpc";
+import {
+  createTRPCRouter,
+  publicProcedure,
+  protectedProcedure,
+} from "root/server/api/trpc";
 import { z } from "zod";
 import { SurveyRepo } from "root/server/services/SurveyRepo";
 import type { SurveyQuestionResponse } from "root/server/domain/types";
@@ -73,15 +77,17 @@ export const surveyRouter = createTRPCRouter({
 
   /**
    * Retrieves the total count of responses
+   * Protected: Only authenticated users can access dashboard data
    */
-  getTotalResponseCount: publicProcedure.query(async () => {
+  getTotalResponseCount: protectedProcedure.query(async () => {
     return ResponseRepo.getTotalResponseCount();
   }),
 
   /**
    * Retrieves responses within a date range
+   * Protected: Only authenticated users can access dashboard data
    */
-  getResponsesByDateRange: publicProcedure
+  getResponsesByDateRange: protectedProcedure
     .input(
       z.object({
         startDate: z.date(),
@@ -99,7 +105,11 @@ export const surveyRouter = createTRPCRouter({
     return ResponseRepo.submitGoogleRedirect();
   }),
 
-  getGoogleRedirects: publicProcedure.query(async () => {
+  /**
+   * Retrieves Google redirects count
+   * Protected: Only authenticated users can access dashboard data
+   */
+  getGoogleRedirects: protectedProcedure.query(async () => {
     return SurveyRepo.getGoogleRedirects();
   }),
 });
