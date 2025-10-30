@@ -10,6 +10,7 @@ interface QuestionRendererProps {
     required: boolean;
   };
   questionNumber: number;
+  questionIndex: number;
   isCompleted: boolean;
   onRatingChange: (questionId: number, rating: number) => void;
   onTextChange: (questionId: number, text: string) => void;
@@ -18,6 +19,7 @@ interface QuestionRendererProps {
 export function QuestionRenderer({
   question,
   questionNumber,
+  questionIndex,
   isCompleted,
   onRatingChange,
   onTextChange,
@@ -26,6 +28,7 @@ export function QuestionRenderer({
     return (
       <QuestionWrapper
         questionNumber={questionNumber}
+        questionIndex={questionIndex}
         isCompleted={isCompleted}
         isRequired={question.required}
       >
@@ -43,6 +46,7 @@ export function QuestionRenderer({
     return (
       <QuestionWrapper
         questionNumber={questionNumber}
+        questionIndex={questionIndex}
         isCompleted={isCompleted}
         isRequired={question.required}
       >

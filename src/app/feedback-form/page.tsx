@@ -46,11 +46,23 @@ export default function FeedbackFormPage() {
   return (
     <FeedbackFormLayout title={survey.title}>
       <div className="space-y-6">
+        {/* Welcome Header - with fade in animation */}
+        <div className="mb-8 animate-[fadeIn_0.6s_ease-out] text-center">
+          <h1 className="mb-3 animate-[slideDown_0.6s_ease-out] text-3xl font-bold text-white md:text-4xl">
+            Tell us about your experience
+          </h1>
+          <p className="animate-[fadeIn_0.8s_ease-out] text-lg text-[var(--color-text-light)]">
+            Your feedback helps us improve and serve you better
+          </p>
+        </div>
+
         {/* Progress Indicator */}
-        <ProgressIndicator
-          completedQuestions={formState.completedQuestions}
-          totalQuestions={formState.totalQuestions}
-        />
+        <div className="animate-[fadeIn_0.8s_ease-out]">
+          <ProgressIndicator
+            completedQuestions={formState.completedQuestions}
+            totalQuestions={formState.totalQuestions}
+          />
+        </div>
 
         {/* Questions */}
         {survey.questions.map((question, index) => (
@@ -58,6 +70,7 @@ export default function FeedbackFormPage() {
             key={question.questionId}
             question={question}
             questionNumber={index + 1}
+            questionIndex={index}
             isCompleted={formState.responses[question.questionId] !== undefined}
             onRatingChange={(questionId, rating) =>
               updateResponse(questionId, rating)
@@ -69,11 +82,11 @@ export default function FeedbackFormPage() {
         ))}
 
         {/* Submit Button */}
-        <div className="flex justify-center pt-6">
+        <div className="flex animate-[fadeInUp_1s_ease-out] justify-center pt-6">
           <Button
             className={`transition-all duration-300 ${
               canSubmit
-                ? "scale-105 shadow-[var(--color-accent-pink)]/25 shadow-lg"
+                ? "scale-105 shadow-[var(--color-accent-pink)]/25 shadow-lg hover:scale-110"
                 : "opacity-70"
             }`}
             disabled={!canSubmit}
