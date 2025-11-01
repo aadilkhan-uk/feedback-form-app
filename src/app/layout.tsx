@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     default: "Choppaluna Feedback",
   },
   description: "Share your dining experience with us",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/choppa.ico" }],
 };
 
 const geist = Geist({
