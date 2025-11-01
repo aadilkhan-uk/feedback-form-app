@@ -22,7 +22,7 @@ async function main() {
     where: { slug: "choppaluna-feedback" },
     update: {},
     create: {
-      title: "Choppaluna Feedback Form",
+      title: "Choppaluna",
       slug: "choppaluna-feedback",
       isActive: true,
       restaurantId: restaurant.id,
@@ -37,29 +37,30 @@ async function main() {
       surveyId: survey.id,
       type: "rating" as const,
       required: true,
-      label: "How do you feel about the product?",
+      label: "Rate the service you received today out of 5",
+      sortOrder: 2,
+    },
+    {
+      surveyId: survey.id,
+      type: "rating" as const,
+      required: true,
+      label: "Rate the taste of your meal today out of 5",
       sortOrder: 1,
     },
     {
       surveyId: survey.id,
       type: "rating" as const,
       required: true,
-      label: "How was your service today?",
-      sortOrder: 2,
-    },
-    {
-      surveyId: survey.id,
-      type: "rating" as const,
-      required: false,
-      label: "How was your experience today?",
-      sortOrder: 3,
+      label: "Rate the presentation of your meal today out of 5",
+      sortOrder: 0,
     },
     {
       surveyId: survey.id,
       type: "text" as const,
       required: false,
-      label: "What did you like about your service today?",
-      sortOrder: 4,
+      label:
+        "Feel free to leave any suggestion about how your experience could have been improved today",
+      sortOrder: 3,
     },
   ];
 
@@ -74,7 +75,10 @@ async function main() {
         ...questionData,
       },
     });
-    console.log(`✅ Created question ${questionData.sortOrder}:`, question.label);
+    console.log(
+      `✅ Created question ${questionData.sortOrder}:`,
+      question.label,
+    );
   }
 
   console.log("\n🎉 Seed completed successfully!");
@@ -89,4 +93,3 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
-
