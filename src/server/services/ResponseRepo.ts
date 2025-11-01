@@ -6,7 +6,7 @@ import type {
   AnswerData,
 } from "../domain/types";
 
-const HARDCODED_SURVEY_DB_ID = "cmh6n4gvs0001bqhqz51kovhx";
+export const HARDCODED_SURVEY_DB_ID = "cmhg0a5tq0001vrg5u3l02d93";
 
 export const ResponseRepo: IResponseRepo = {
   submitResponse: async (data: {

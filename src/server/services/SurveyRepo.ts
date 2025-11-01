@@ -1,6 +1,7 @@
 import { db } from "../db";
 import type { ISurveyRepo } from "../domain/contracts";
 import type { Survey, SurveyQuestion } from "../domain/types";
+import { HARDCODED_SURVEY_DB_ID } from "./ResponseRepo";
 
 /**
  * Maps a Prisma QuestionType enum to a domain QuestionType
@@ -72,7 +73,7 @@ export const SurveyRepo: ISurveyRepo = {
   async getGoogleRedirects() {
     try {
       const survey = await db.survey.findUnique({
-        where: { id: "cmh6n4gvs0001bqhqz51kovhx" },
+        where: { id: HARDCODED_SURVEY_DB_ID },
       });
 
       if (!survey) {
@@ -89,7 +90,7 @@ export const SurveyRepo: ISurveyRepo = {
   async getSurvey() {
     try {
       const survey = await db.survey.findUnique({
-        where: { id: "cmh6n4gvs0001bqhqz51kovhx" },
+        where: { id: HARDCODED_SURVEY_DB_ID },
         include: {
           questions: {
             orderBy: {
