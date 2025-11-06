@@ -30,9 +30,9 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   const sizeClasses = {
-    sm: "px-6 py-3 text-sm rounded-full",
-    md: "px-8 py-4 text-base rounded-full",
-    lg: "px-10 py-5 text-lg rounded-full",
+    sm: "px-4 py-2 text-xs md:px-6 md:py-3 md:text-sm rounded-full",
+    md: "px-6 py-3 text-sm md:px-8 md:py-4 md:text-base rounded-full",
+    lg: "px-8 py-4 text-base md:px-10 md:py-5 md:text-lg rounded-full",
   };
 
   const disabledClasses = disabled

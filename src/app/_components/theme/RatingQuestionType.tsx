@@ -58,12 +58,12 @@ export const RatingQuestionType: React.FC<RatingQuestionTypeProps> = ({
   return (
     <div className={className}>
       {/* Label */}
-      <label className="mb-4 block text-base leading-tight font-normal text-[var(--color-text-white)]">
+      <label className="mb-2 block text-sm leading-tight font-normal text-[var(--color-text-white)] md:mb-3 md:text-base">
         {label}
       </label>
 
       {/* Rating Buttons */}
-      <div className="mb-4 flex flex-wrap gap-2 sm:gap-3">
+      <div className="mb-2 flex flex-wrap gap-1.5 sm:gap-2 md:mb-3 md:gap-3">
         {ratingOptions.map((rating) => {
           const colors = getRatingColor(rating);
           const isSelected = selectedRating === rating;
@@ -72,7 +72,7 @@ export const RatingQuestionType: React.FC<RatingQuestionTypeProps> = ({
             <button
               key={rating}
               onClick={() => handleRatingClick(rating)}
-              className={`group relative flex h-12 w-12 items-center justify-center rounded-lg border-2 text-base font-semibold transition-all duration-200 hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:ring-offset-[var(--color-primary-bg)] focus:outline-none active:scale-95 sm:h-14 sm:w-14 sm:text-lg ${
+              className={`group relative flex h-10 w-10 items-center justify-center rounded-lg border-2 text-sm font-semibold transition-all duration-200 hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:ring-offset-[var(--color-primary-bg)] focus:outline-none active:scale-95 sm:h-12 sm:w-12 sm:text-base md:h-14 md:w-14 md:text-lg ${
                 isSelected
                   ? "text-[var(--color-text-white)] shadow-lg"
                   : "border-white/20 bg-white/10 text-[var(--color-text-light)]"
@@ -115,7 +115,7 @@ export const RatingQuestionType: React.FC<RatingQuestionTypeProps> = ({
       {/* Rating Labels (Mobile-first, hidden on larger screens to reduce clutter) */}
       <div
         className="flex justify-between text-xs text-[var(--color-text-muted)] sm:hidden"
-        style={{ width: "calc(5 * 3rem + 4 * 0.5rem)" }}
+        style={{ width: "calc(5 * 2.5rem + 4 * 0.375rem)" }}
       >
         <span>Poor</span>
         <span>Excellent</span>

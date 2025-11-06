@@ -18,7 +18,9 @@ export const Card: React.FC<CardProps> = ({
   };
 
   return (
-    <div className={`rounded-xl p-6 ${variantClasses[variant]} ${className}`}>
+    <div
+      className={`rounded-lg p-3 md:rounded-xl md:p-5 ${variantClasses[variant]} ${className}`}
+    >
       {children}
     </div>
   );

@@ -28,16 +28,16 @@ export function QuestionWrapper({
       }}
     >
       <Card
-        className={`mb-4 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg ${
+        className={`mb-2 transition-all duration-300 hover:scale-[1.01] hover:shadow-lg md:mb-3 ${
           isCompleted
             ? "animate-[pulseGreen_0.5s_ease-out] border-[var(--color-accent-green)]/30 bg-white/8"
             : "border-white/10"
         }`}
       >
-        <div className="mb-4">
-          <div className="mb-3 flex items-center gap-3">
+        <div className="mb-2 md:mb-3">
+          <div className="mb-2 flex items-center gap-2 md:mb-3 md:gap-3">
             <div
-              className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-semibold transition-all duration-300 ${
+              className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-all duration-300 md:h-8 md:w-8 md:text-sm ${
                 isCompleted
                   ? "scale-110 bg-[var(--color-accent-green)] text-white"
                   : "bg-white/10 text-[var(--color-text-light)]"
@@ -46,7 +46,7 @@ export function QuestionWrapper({
               {questionNumber}
             </div>
             {isRequired && (
-              <div className="flex items-center gap-1 text-sm">
+              <div className="flex items-center gap-1 text-xs md:text-sm">
                 <span className="font-semibold text-[var(--color-accent-pink)]">
                   *
                 </span>

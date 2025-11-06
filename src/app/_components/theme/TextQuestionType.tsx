@@ -31,7 +31,7 @@ export const TextQuestionType: React.FC<TextQuestionTypeProps> = ({
   return (
     <div className={className}>
       {/* Label */}
-      <label className="mb-4 block text-base leading-tight font-normal text-[var(--color-text-white)]">
+      <label className="mb-2 block text-sm leading-tight font-normal text-[var(--color-text-white)] md:mb-3 md:text-base">
         {label}
       </label>
 
@@ -43,7 +43,7 @@ export const TextQuestionType: React.FC<TextQuestionTypeProps> = ({
           onChange={(e) => handleTextChange(e.target.value)}
           placeholder={placeholder}
           maxLength={maxLength}
-          className={`w-full rounded-lg border bg-white/10 px-2 py-4 text-[var(--color-text-white)] transition-all duration-200 placeholder:text-[var(--color-text-muted)] hover:border-white/25 hover:bg-white/15 focus:border-[var(--color-accent-green)] focus:bg-white/15 focus:outline-none ${multiline ? "min-h-[120px] resize-y" : "h-14"} ${maxLength ? "pr-16" : ""} `}
+          className={`w-full rounded-lg border bg-white/10 px-2 py-2 text-sm text-[var(--color-text-white)] transition-all duration-200 placeholder:text-[var(--color-text-muted)] hover:border-white/25 hover:bg-white/15 focus:border-[var(--color-accent-green)] focus:bg-white/15 focus:outline-none md:py-3 md:text-base ${multiline ? "min-h-[80px] resize-y md:min-h-[100px]" : "h-10 md:h-12"} ${maxLength ? "pr-16" : ""} `}
           aria-label={label}
         />
 

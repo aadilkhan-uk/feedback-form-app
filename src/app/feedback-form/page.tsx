@@ -45,13 +45,13 @@ export default function FeedbackFormPage() {
 
   return (
     <FeedbackFormLayout title={survey.title}>
-      <div className="space-y-6">
+      <div className="space-y-3 md:space-y-6">
         {/* Welcome Header - with fade in animation */}
-        <div className="mb-8 animate-[fadeIn_0.6s_ease-out] text-center">
-          <h1 className="mb-3 animate-[slideDown_0.6s_ease-out] text-3xl font-bold text-white md:text-4xl">
+        <div className="mb-3 animate-[fadeIn_0.6s_ease-out] text-center md:mb-6">
+          <h1 className="mb-1 animate-[slideDown_0.6s_ease-out] text-xl font-bold text-white md:mb-3 md:text-3xl lg:text-4xl">
             Tell us about your experience
           </h1>
-          <p className="animate-[fadeIn_0.8s_ease-out] text-lg text-[var(--color-text-light)]">
+          <p className="animate-[fadeIn_0.8s_ease-out] text-sm text-[var(--color-text-light)] md:text-base lg:text-lg">
             Your feedback helps us improve and serve you better
           </p>
         </div>
@@ -82,7 +82,7 @@ export default function FeedbackFormPage() {
         ))}
 
         {/* Submit Button */}
-        <div className="flex animate-[fadeInUp_1s_ease-out] justify-center pt-6">
+        <div className="flex animate-[fadeInUp_1s_ease-out] justify-center pt-2 md:pt-4">
           <Button
             className={`transition-all duration-300 ${
               canSubmit
