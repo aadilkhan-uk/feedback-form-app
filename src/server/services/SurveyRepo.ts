@@ -7,7 +7,7 @@ import { HARDCODED_SURVEY_DB_ID } from "./ResponseRepo";
  * Maps a Prisma QuestionType enum to a domain QuestionType
  */
 function mapQuestionType(
-  prismaType: "text" | "rating",
+  prismaType: "text" | "rating" | "singlelinetext",
 ): SurveyQuestion["type"] {
   return prismaType;
 }
@@ -20,7 +20,7 @@ function mapPrismaQuestionToDomain(
   prismaQuestion: {
     id: string;
     label: string;
-    type: "text" | "rating";
+    type: "text" | "rating" | "singlelinetext";
     required: boolean;
     sortOrder: number;
   },
@@ -49,7 +49,7 @@ function mapPrismaSurveyToDomain(prismaSurvey: {
   questions: Array<{
     id: string;
     label: string;
-    type: "text" | "rating";
+    type: "text" | "rating" | "singlelinetext";
     required: boolean;
     sortOrder: number;
   }>;

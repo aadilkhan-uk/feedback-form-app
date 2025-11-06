@@ -62,6 +62,13 @@ async function main() {
         "Feel free to leave any suggestion about how your experience could have been improved today",
       sortOrder: 3,
     },
+    {
+      surveyId: survey.id,
+      type: "singlelinetext" as const,
+      required: false,
+      label: "Enter your email address for the chance to win a £25 gift card",
+      sortOrder: 4,
+    },
   ];
 
   for (const questionData of questions) {

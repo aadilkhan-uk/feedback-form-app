@@ -1,4 +1,4 @@
-export type QuestionType = "rating" | "text";
+export type QuestionType = "rating" | "text" | "singlelinetext";
 
 export interface SurveyQuestion {
   questionId: number;

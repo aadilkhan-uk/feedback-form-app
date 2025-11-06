@@ -17,6 +17,7 @@ datasource db {
 enum QuestionType {
   text
   rating
+  singlelinetext
 }
 
 model Restaurant {

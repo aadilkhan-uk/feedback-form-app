@@ -5,7 +5,7 @@ import { QuestionWrapper, RatingQuestionType, TextQuestionType } from "./theme";
 interface QuestionRendererProps {
   question: {
     questionId: number;
-    type: "rating" | "text";
+    type: "rating" | "text" | "singlelinetext";
     label: string;
     required: boolean;
   };
@@ -54,6 +54,24 @@ export function QuestionRenderer({
           className="flex-1"
           label={question.label}
           onTextChange={(text) => onTextChange(question.questionId, text)}
+        />
+      </QuestionWrapper>
+    );
+  }
+
+  if (question.type === "singlelinetext") {
+    return (
+      <QuestionWrapper
+        questionNumber={questionNumber}
+        questionIndex={questionIndex}
+        isCompleted={isCompleted}
+        isRequired={question.required}
+      >
+        <TextQuestionType
+          className="flex-1"
+          label={question.label}
+          onTextChange={(text) => onTextChange(question.questionId, text)}
+          multiline={false}
         />
       </QuestionWrapper>
     );
